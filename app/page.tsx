@@ -35,7 +35,7 @@ const certifications = [
 const experience = [
   {
     role: "Cloud Security & Reliability Engineer",
-    company: "Search",
+    company: "Searce",
     date: "April 2024 - Present",
     responsibilities: [
       "Monitored and maintained cloud infrastructure health and performance, ensuring high availability and reliability.",
