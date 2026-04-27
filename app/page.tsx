@@ -420,36 +420,33 @@ export default function Portfolio() {
             </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {skills.map((skillGroup, idx) => (
-            <Card key={idx} className="flex flex-col h-full !p-8">
-              <h3 className="text-2xl font-semibold text-white mb-6 border-b border-slate-800/80 pb-4">{skillGroup.category}</h3>
-              <div className="flex flex-wrap gap-3 mt-auto">
-                {skillGroup.items.map((skill, i) => (
-                  <motion.span 
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.1 + i * 0.05, type: "spring" }}
-                    viewport={{ once: true }}
-                    className="px-4 py-2 bg-slate-800/40 text-cyan-200 text-sm font-medium rounded-xl border border-slate-700/50 hover:bg-cyan-900/30 hover:border-cyan-400/50 transition-all cursor-default shadow-lg shadow-slate-950/50"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      {/* Languages Section - Removed specific mt-40, relying on Section mb-32 */}
-      <Section id="languages" className="max-w-5xl mx-auto">
+        
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {skills.map((skillGroup, index) => (
+    <div 
+      key={index} 
+      className="bg-slate-900/50 border border-slate-800 p-6 rounded-xl flex flex-col gap-4 backdrop-blur-sm"
+    >
+      <h3 className="text-xl font-bold text-white">{skillGroup.category}</h3>
+      <div className="w-full h-px bg-slate-800" />
+      <div className="flex flex-wrap gap-2 mt-2">
+        {skillGroup.items.map((item, i) => (
+          <span 
+            key={i} 
+            className="px-3 py-1 bg-slate-800/80 text-cyan-50 text-sm rounded-lg border border-slate-700"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
         <motion.div variants={itemVariants}>
             <div className="flex items-center gap-4 mb-16">
             <div className="p-3 bg-cyan-950/50 rounded-2xl border border-cyan-800/60 shadow-[0_0_15px_rgba(6,182,212,0.2)]"><Code2 className="text-cyan-400" size={32} /></div>
             <h2 className="text-5xl font-bold text-white">Languages</h2>
-            </div>
+      </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
