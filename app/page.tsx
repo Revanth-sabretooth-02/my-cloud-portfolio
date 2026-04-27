@@ -13,8 +13,9 @@ import { SiPython } from "react-icons/si";
 
 const skills = [
   { category: "Cloud Infrastructure", items: ["Google Cloud Platform (GCP)", "AWS"] },
+  { category: "Cloud Security & Networking", items: ["VPC & Peering", "Cloud DNS", "Load Balancing", "Firewalls / Security Groups", "TCP/IP"] },
   { category: "Monitoring & Observability", items: ["Grafana", "PMM", "Datadog"] },
-  { category: "DevOps & Tools", items: ["Docker", "Kubernetes", "GKE", "Terraform", "Git/GitHub"] },
+  { category: "DevOps & Tools", items: ["Docker", "Kubernetes", "GKE", "CI/CD", "Terraform", "Git/GitHub", "Shell Scripting"] },
   { category: "Operating Systems", items: ["Linux/Unix", "Windows"] },
   { category: "ITSM", items: ["Freshservice"] },
 ];
@@ -46,6 +47,7 @@ const experience = [
       "Applied monthly patching and upgrades to virtual machines (VMs), enhancing system security and stability."
     ],
     achievements: [
+      "Recognized as 'Performer for Q1 2026' for demonstrating end-to-end ownership and delivering proactive infrastructure support during high-traffic periods to maintain continuous system stability.",
       "Achieved 100% SLA compliance, consistently resolving incidents and cases within defined timelines.",
       "Optimized infrastructure usage and monitoring setup, contributing to measurable cost savings."
     ]
