@@ -280,6 +280,20 @@ export default function Portfolio() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
+  // --- NEW VISITOR COUNTER LOGIC ---
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Replace the URL below with your actual GCP Trigger URL!
+    fetch("https://visitor-counter-1097810767104.asia-south1.run.app")
+      .then(res => res.json())
+      .then(data => {
+        if (data.count) setVisitorCount(data.count);
+      })
+      .catch(err => console.error("Error fetching visitor count:", err));
+  }, []);
+  // ---------------------------------
+
   return (
     <div className="min-h-screen text-slate-200 selection:bg-cyan-500 selection:text-white font-sans overflow-x-hidden relative">
       
@@ -515,6 +529,27 @@ export default function Portfolio() {
                 <div key={i} className="absolute bg-white h-0.5 w-0.5 rounded-full" style={{ top: `${(i * 13) % 100}%`, left: `${(i * 7) % 100}%` }}></div>
              ))}
         </div>
+
+        {/* --- VISITOR COUNTER BADGE --- */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10 flex justify-center"
+        >
+          <div className="bg-slate-900/80 border border-cyan-800/50 px-6 py-3 rounded-full flex items-center gap-4 shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)] transition-all cursor-default">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+              <span className="text-slate-400 text-sm font-medium tracking-widest uppercase">Live Views</span>
+            </div>
+            <div className="w-px h-6 bg-slate-800"></div>
+            <span className="text-cyan-400 font-mono font-bold text-2xl">
+              {visitorCount !== null ? visitorCount : "..."}
+            </span>
+          </div>
+        </motion.div>
+        {/* ----------------------------- */}
+
         <p className="text-slate-400 mb-4 font-medium text-lg">Designed & Built for <span className="text-cyan-400 font-bold">Revanth P</span></p>
         <div className="text-slate-500 flex justify-center items-center gap-6">
             <span>Bengaluru, India</span>
