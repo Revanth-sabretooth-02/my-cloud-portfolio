@@ -420,7 +420,7 @@ export default function Portfolio() {
             </div>
         </motion.div>
 
-        
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {skills.map((skillGroup, index) => (
     <div 
@@ -442,11 +442,15 @@ export default function Portfolio() {
     </div>
   ))}
 </div>
+      </Section>
+
+      {/* Languages Section */}
+      <Section id="languages" className="max-w-5xl mx-auto mt-32 !min-h-fit pb-16">
         <motion.div variants={itemVariants}>
             <div className="flex items-center gap-4 mb-16">
             <div className="p-3 bg-cyan-950/50 rounded-2xl border border-cyan-800/60 shadow-[0_0_15px_rgba(6,182,212,0.2)]"><Code2 className="text-cyan-400" size={32} /></div>
             <h2 className="text-5xl font-bold text-white">Languages</h2>
-      </div>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
