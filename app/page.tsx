@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { signInWithPopup, onAuthStateChanged, User } from "firebase/auth";
+import { auth, googleProvider } from "../lib/firebase";
 import { motion, useScroll, useSpring, useInView, Variants } from "framer-motion";
-import { 
+import {
   Github, Linkedin, Mail, Award, Server, ShieldCheck, Cloud, ExternalLink, Terminal, CheckCircle2, Code2,
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
@@ -277,6 +279,25 @@ const Card = ({ children, className = "", onClick }: CardProps) => (
 );
 
 export default function Portfolio() {
+  // --- ADD THIS AUTHENTICATION STATE ---
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    // Listen for login/logout changes
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+  // -------------------------------------
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
@@ -522,6 +543,47 @@ export default function Portfolio() {
         </motion.div>
       </Section>
 
+{/* --- GATED RESUME SECTION --- */}
+        <div className="mt-16 p-8 bg-slate-900/50 border border-slate-800 rounded-2xl max-w-lg mx-auto text-center shadow-lg">
+          <div className="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center mx-auto mb-4">
+            <ShieldCheck className="w-6 h-6 text-cyan-400" />
+          </div>
+          <h3 className="text-xl font-bold text-white mb-2">Secure Resume Access</h3>
+          <p className="text-sm text-slate-400 mb-6">
+            This document is protected by Zero Trust principles. Authenticate to view.
+          </p>
+          
+          {!user ? (
+            <button 
+              onClick={handleLogin}
+              className="bg-white text-slate-900 px-6 py-3 rounded-full font-bold hover:bg-cyan-400 transition-colors flex items-center justify-center gap-3 mx-auto w-full group"
+            >
+              <FcGoogle className="w-6 h-6" />
+              Sign in with Google
+            </button>
+          ) : (
+            <div className="text-left bg-slate-950 p-5 rounded-xl border border-slate-800">
+              <p className="text-green-400 text-sm mb-4 flex items-center gap-2 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-green-500" />
+                Identity Verified: {user.email}
+              </p>
+              <button 
+                onClick={() => alert("Secret Manager fetch coming next!")}
+                className="w-full bg-cyan-600 text-white px-6 py-3 rounded-full font-bold hover:bg-cyan-500 transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+              >
+                Fetch Private Resume Link
+              </button>
+              <button 
+                onClick={() => auth.signOut()}
+                className="w-full mt-3 text-xs text-slate-500 hover:text-slate-300 transition-colors text-center"
+              >
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
+        {/* ---------------------------- */}
+
       {/* Footer */}
       <footer className="bg-slate-950/60 backdrop-blur-xl py-16 text-center relative z-10">
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -549,6 +611,8 @@ export default function Portfolio() {
           </div>
         </motion.div>
         {/* ----------------------------- */}
+
+        
 
         <p className="text-slate-400 mb-4 font-medium text-lg">Designed & Built for <span className="text-cyan-400 font-bold">Revanth P</span></p>
         <div className="text-slate-500 flex justify-center items-center gap-6">
